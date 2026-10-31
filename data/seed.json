@@ -1,0 +1,1319 @@
+{
+  "meta": {
+    "title": "Native Rebuild Copilot",
+    "disclaimer": "Unofficial demo built with Devin - synthetic data",
+    "generatedBy": "scripts/seed.py",
+    "seed": 20260930
+  },
+  "surfaces": [
+    {
+      "id": "price-alert-toggle",
+      "name": "PriceAlertToggle",
+      "area": "Alerts",
+      "path": "app/features/alerts/PriceAlertToggle.tsx",
+      "squad": "Notifications squad",
+      "dailyViews": 585000,
+      "priority": "P1",
+      "source": "import React, { useState } from 'react';\nimport { View, Text, Switch } from 'react-native';\nimport { colors, spacing, radii, typography } from '@app/design/tokens';\n\ntype Props = { assetName: string; threshold: number };\n\nexport function PriceAlertToggle({ assetName, threshold }: Props) {\n  const [enabled, setEnabled] = useState(false);\n  return (\n    <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm, padding: spacing.md, backgroundColor: colors.surface }}>\n      <Text style={{ ...typography.body, color: colors.textPrimary }}>Alert when {assetName} crosses {threshold}</Text>\n      <Switch value={enabled} onValueChange={setEnabled} />\n    </View>\n  );\n}",
+      "golden": [
+        {
+          "id": "price-alert-toggle-swift-1",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "struct PriceAlertToggle: View",
+          "label": "Declares a SwiftUI view"
+        },
+        {
+          "id": "price-alert-toggle-swift-2",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "@State private var enabled = false",
+          "label": "Local toggle state"
+        },
+        {
+          "id": "price-alert-toggle-swift-3",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "HStack(alignment: .center, spacing: DS.Spacing.sm)",
+          "label": "Row layout with token gap"
+        },
+        {
+          "id": "price-alert-toggle-swift-4",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "Toggle(\"\", isOn: $enabled)",
+          "label": "Switch bound to state"
+        },
+        {
+          "id": "price-alert-toggle-swift-5",
+          "platform": "swift",
+          "type": "contains",
+          "expect": ".background(DS.Color.surface)",
+          "label": "Surface token, not a hard-coded colour"
+        },
+        {
+          "id": "price-alert-toggle-kotlin-6",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "fun PriceAlertToggle(assetName: String, threshold: Double)",
+          "label": "Composable signature"
+        },
+        {
+          "id": "price-alert-toggle-kotlin-7",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "var enabled by remember { mutableStateOf(false) }",
+          "label": "Remembered state"
+        },
+        {
+          "id": "price-alert-toggle-kotlin-8",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "Switch(checked = enabled, onCheckedChange = { enabled = it })",
+          "label": "Switch wiring"
+        },
+        {
+          "id": "price-alert-toggle-kotlin-9",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "DSTheme.colors.surface",
+          "label": "Surface token"
+        }
+      ]
+    },
+    {
+      "id": "portfolio-balance-card",
+      "name": "PortfolioBalanceCard",
+      "area": "Portfolio",
+      "path": "app/features/portfolio/PortfolioBalanceCard.tsx",
+      "squad": "Portfolio squad",
+      "dailyViews": 311000,
+      "priority": "P0",
+      "source": "import React from 'react';\nimport { View, Text, Pressable } from 'react-native';\nimport { colors, spacing, radii, typography } from '@app/design/tokens';\n\ntype Props = { totalBalance: number; dayChangePct: number; onDeposit: () => void };\n\nexport function PortfolioBalanceCard({ totalBalance, dayChangePct, onDeposit }: Props) {\n  return (\n    <View style={{ padding: spacing.lg, gap: spacing.xs, backgroundColor: colors.surface, borderRadius: radii.lg }}>\n      <Text style={{ ...typography.caption, color: colors.textSecondary }}>Total balance</Text>\n      <Text style={{ ...typography.display, color: colors.textPrimary }}>${totalBalance.toFixed(2)}</Text>\n      <Text style={{ ...typography.body, color: colors.positive }}>{dayChangePct.toFixed(2)}% today</Text>\n      <Pressable onPress={onDeposit} style={{ padding: spacing.sm, backgroundColor: colors.primary, borderRadius: radii.md }}>\n        <Text style={{ ...typography.label, color: colors.onPrimary }}>Deposit</Text>\n      </Pressable>\n    </View>\n  );\n}",
+      "golden": [
+        {
+          "id": "portfolio-balance-card-swift-1",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "let onDeposit: () -> Void",
+          "label": "Callback prop typed as closure"
+        },
+        {
+          "id": "portfolio-balance-card-swift-2",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "String(format: \"%.2f\", totalBalance)",
+          "label": "toFixed(2) becomes a format string"
+        },
+        {
+          "id": "portfolio-balance-card-swift-3",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "Button(action: onDeposit)",
+          "label": "Pressable becomes Button"
+        },
+        {
+          "id": "portfolio-balance-card-swift-4",
+          "platform": "swift",
+          "type": "contains",
+          "expect": ".clipShape(RoundedRectangle(cornerRadius: DS.Radius.lg))",
+          "label": "Card radius token"
+        },
+        {
+          "id": "portfolio-balance-card-swift-5",
+          "platform": "swift",
+          "type": "contains",
+          "expect": ".font(DS.Font.display)",
+          "label": "Typography token"
+        },
+        {
+          "id": "portfolio-balance-card-kotlin-6",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "onDeposit: () -> Unit",
+          "label": "Callback prop typed as lambda"
+        },
+        {
+          "id": "portfolio-balance-card-kotlin-7",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "\"%.2f\".format(totalBalance)",
+          "label": "toFixed(2) becomes format()"
+        },
+        {
+          "id": "portfolio-balance-card-kotlin-8",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": ".clickable { onDeposit() }",
+          "label": "Pressable becomes clickable"
+        },
+        {
+          "id": "portfolio-balance-card-kotlin-9",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "style = DSTheme.typography.display",
+          "label": "Typography token"
+        }
+      ]
+    },
+    {
+      "id": "asset-list-screen",
+      "name": "AssetListScreen",
+      "area": "Trade",
+      "path": "app/features/trade/AssetListScreen.tsx",
+      "squad": "Trade squad",
+      "dailyViews": 582000,
+      "priority": "P1",
+      "source": "import React, { useEffect } from 'react';\nimport { View, Text, FlatList, ActivityIndicator } from 'react-native';\nimport { colors, spacing, radii, typography } from '@app/design/tokens';\nimport { AssetRow } from './AssetRow';\n\ntype Props = { assets: Asset[]; isLoading: boolean; onRefresh: () => void };\n\nexport function AssetListScreen({ assets, isLoading, onRefresh }: Props) {\n  useEffect(() => { onRefresh(); }, []);\n  return (\n    <View style={{ flex: 1, backgroundColor: colors.background }}>\n      <Text style={{ ...typography.title, color: colors.textPrimary, padding: spacing.md }}>Assets</Text>\n      {isLoading && <ActivityIndicator />}\n      <FlatList data={assets} keyExtractor={(item) => item.id} renderItem={({ item }) => <AssetRow asset={item} />} />\n    </View>\n  );\n}",
+      "golden": [
+        {
+          "id": "asset-list-screen-swift-1",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "let assets: [Asset]",
+          "label": "Array prop"
+        },
+        {
+          "id": "asset-list-screen-swift-2",
+          "platform": "swift",
+          "type": "contains",
+          "expect": ".task {",
+          "label": "Mount effect becomes .task"
+        },
+        {
+          "id": "asset-list-screen-swift-3",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "if isLoading {",
+          "label": "Conditional render"
+        },
+        {
+          "id": "asset-list-screen-swift-4",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "List(assets, id: \\.id) { item in",
+          "label": "FlatList becomes List keyed by id"
+        },
+        {
+          "id": "asset-list-screen-swift-5",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "ProgressView()",
+          "label": "ActivityIndicator becomes ProgressView"
+        },
+        {
+          "id": "asset-list-screen-kotlin-6",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "assets: List<Asset>",
+          "label": "List prop"
+        },
+        {
+          "id": "asset-list-screen-kotlin-7",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "LaunchedEffect(Unit) {",
+          "label": "Mount effect becomes LaunchedEffect"
+        },
+        {
+          "id": "asset-list-screen-kotlin-8",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "items(assets, key = { it.id }) { item ->",
+          "label": "FlatList becomes LazyColumn items"
+        },
+        {
+          "id": "asset-list-screen-kotlin-9",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "CircularProgressIndicator()",
+          "label": "ActivityIndicator mapping"
+        },
+        {
+          "id": "asset-list-screen-kotlin-10",
+          "platform": "kotlin",
+          "type": "noTodo",
+          "expect": null,
+          "label": "No unmapped TODOs"
+        }
+      ]
+    },
+    {
+      "id": "asset-row",
+      "name": "AssetRow",
+      "area": "Trade",
+      "path": "app/features/trade/AssetRow.tsx",
+      "squad": "Trade squad",
+      "dailyViews": 791000,
+      "priority": "P1",
+      "source": "import React from 'react';\nimport { View, Text, Image, Pressable } from 'react-native';\nimport { colors, spacing, radii, typography } from '@app/design/tokens';\n\ntype Props = { asset: Asset; onPress: () => void };\n\nexport function AssetRow({ asset, onPress }: Props) {\n  return (\n    <Pressable onPress={onPress}>\n      <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm, padding: spacing.md }}>\n        <Image source={{ uri: asset.iconUrl }} style={{ width: 32, height: 32 }} />\n        <Text style={{ ...typography.body, color: colors.textPrimary, flex: 1 }}>{asset.name}</Text>\n        <Text style={{ ...typography.body, color: colors.textSecondary }}>${asset.price.toFixed(2)}</Text>\n      </View>\n    </Pressable>\n  );\n}",
+      "golden": [
+        {
+          "id": "asset-row-swift-1",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "AsyncImage(url: URL(string: asset.iconUrl))",
+          "label": "Remote image"
+        },
+        {
+          "id": "asset-row-swift-2",
+          "platform": "swift",
+          "type": "contains",
+          "expect": ".frame(width: 32, height: 32)",
+          "label": "Fixed icon size"
+        },
+        {
+          "id": "asset-row-swift-3",
+          "platform": "swift",
+          "type": "contains",
+          "expect": ".frame(maxWidth: .infinity, alignment: .leading)",
+          "label": "flex: 1 inside a row"
+        },
+        {
+          "id": "asset-row-swift-4",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "String(format: \"%.2f\", asset.price)",
+          "label": "Price formatting"
+        },
+        {
+          "id": "asset-row-kotlin-5",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "AsyncImage(model = asset.iconUrl, contentDescription = null, modifier = Modifier.size(32.dp))",
+          "label": "Remote image"
+        },
+        {
+          "id": "asset-row-kotlin-6",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "Modifier.weight(1f)",
+          "label": "flex: 1 inside a row"
+        },
+        {
+          "id": "asset-row-kotlin-7",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "verticalAlignment = Alignment.CenterVertically",
+          "label": "alignItems: center"
+        },
+        {
+          "id": "asset-row-kotlin-8",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "\"%.2f\".format(asset.price)",
+          "label": "Price formatting"
+        }
+      ]
+    },
+    {
+      "id": "send-amount-input",
+      "name": "SendAmountInput",
+      "area": "Send",
+      "path": "app/features/send/SendAmountInput.tsx",
+      "squad": "Payments squad",
+      "dailyViews": 391000,
+      "priority": "P1",
+      "source": "import React, { useState } from 'react';\nimport { View, Text, TextInput, Pressable } from 'react-native';\nimport { colors, spacing, radii, typography } from '@app/design/tokens';\n\ntype Props = { assetSymbol: string; available: number; onContinue: (amount: string) => void };\n\nexport function SendAmountInput({ assetSymbol, available, onContinue }: Props) {\n  const [amount, setAmount] = useState('');\n  return (\n    <View style={{ padding: spacing.md, gap: spacing.sm }}>\n      <Text style={{ ...typography.caption, color: colors.textSecondary }}>Available: {available} {assetSymbol}</Text>\n      <TextInput value={amount} onChangeText={setAmount} placeholder=\"0.00\" keyboardType=\"decimal-pad\" />\n      {amount.length > 0 && (\n        <Pressable onPress={() => onContinue(amount)} style={{ padding: spacing.md, backgroundColor: colors.primary, borderRadius: radii.md }}>\n          <Text style={{ ...typography.label, color: colors.onPrimary }}>Continue</Text>\n        </Pressable>\n      )}\n    </View>\n  );\n}",
+      "golden": [
+        {
+          "id": "send-amount-input-swift-1",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "TextField(\"0.00\", text: $amount)",
+          "label": "TextInput bound to state"
+        },
+        {
+          "id": "send-amount-input-swift-2",
+          "platform": "swift",
+          "type": "contains",
+          "expect": ".keyboardType(.decimalPad)",
+          "label": "Decimal keyboard"
+        },
+        {
+          "id": "send-amount-input-swift-3",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "if amount.count > 0 {",
+          "label": "JS .length becomes .count"
+        },
+        {
+          "id": "send-amount-input-swift-4",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "Button(action: { onContinue(amount) })",
+          "label": "Inline handler"
+        },
+        {
+          "id": "send-amount-input-kotlin-5",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "onValueChange = { amount = it }",
+          "label": "TextInput wiring"
+        },
+        {
+          "id": "send-amount-input-kotlin-6",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)",
+          "label": "Decimal keyboard"
+        },
+        {
+          "id": "send-amount-input-kotlin-7",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "if (amount.length > 0) {",
+          "label": "Conditional render"
+        },
+        {
+          "id": "send-amount-input-kotlin-8",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": ".clickable { onContinue(amount) }",
+          "label": "Inline handler"
+        }
+      ]
+    },
+    {
+      "id": "transaction-history-list",
+      "name": "TransactionHistoryList",
+      "area": "Activity",
+      "path": "app/features/activity/TransactionHistoryList.tsx",
+      "squad": "Portfolio squad",
+      "dailyViews": 388000,
+      "priority": "P1",
+      "source": "import React from 'react';\nimport { View, Text, FlatList } from 'react-native';\nimport { colors, spacing, radii, typography } from '@app/design/tokens';\nimport { EmptyState } from '../shared/EmptyState';\nimport { TransactionRow } from './TransactionRow';\n\ntype Props = { transactions: Transaction[]; filter: string };\n\nexport function TransactionHistoryList({ transactions, filter }: Props) {\n  return (\n    <View style={{ flex: 1, backgroundColor: colors.background }}>\n      <Text style={{ ...typography.title, color: colors.textPrimary, padding: spacing.md }}>History · {filter}</Text>\n      {transactions.length === 0 ? <EmptyState message=\"No transactions yet\" /> : <FlatList data={transactions} keyExtractor={(item) => item.id} renderItem={({ item }) => <TransactionRow tx={item} />} />}\n    </View>\n  );\n}",
+      "golden": [
+        {
+          "id": "transaction-history-list-swift-1",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "if transactions.isEmpty {",
+          "label": "Ternary render becomes if/else"
+        },
+        {
+          "id": "transaction-history-list-swift-2",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "EmptyState(message: \"No transactions yet\")",
+          "label": "Empty state branch"
+        },
+        {
+          "id": "transaction-history-list-swift-3",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "List(transactions, id: \\.id) { item in",
+          "label": "List branch"
+        },
+        {
+          "id": "transaction-history-list-kotlin-4",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "if (transactions.isEmpty()) {",
+          "label": "Ternary render becomes if/else"
+        },
+        {
+          "id": "transaction-history-list-kotlin-5",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "EmptyState(message = \"No transactions yet\")",
+          "label": "Empty state branch"
+        },
+        {
+          "id": "transaction-history-list-kotlin-6",
+          "platform": "kotlin",
+          "type": "noTodo",
+          "expect": null,
+          "label": "No unmapped TODOs"
+        }
+      ]
+    },
+    {
+      "id": "watchlist-star",
+      "name": "WatchlistStar",
+      "area": "Watchlist",
+      "path": "app/features/watchlist/WatchlistStar.tsx",
+      "squad": "Trade squad",
+      "dailyViews": 108000,
+      "priority": "P1",
+      "source": "import React, { useState } from 'react';\nimport { Text, Pressable } from 'react-native';\nimport { colors, spacing, radii, typography } from '@app/design/tokens';\n\ntype Props = { assetId: string; initiallyStarred: boolean };\n\nexport function WatchlistStar({ assetId, initiallyStarred }: Props) {\n  const [starred, setStarred] = useState(initiallyStarred);\n  return (\n    <Pressable onPress={() => setStarred(!starred)} style={{ padding: spacing.xs }}>\n      <Text style={{ ...typography.title, color: colors.accent }}>{starred ? '★' : '☆'}</Text>\n    </Pressable>\n  );\n}",
+      "golden": [
+        {
+          "id": "watchlist-star-swift-1",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "@State private var starred: Bool",
+          "label": "State seeded from a prop needs an explicit type"
+        },
+        {
+          "id": "watchlist-star-swift-2",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "_starred = State(initialValue: initiallyStarred)",
+          "label": "Initialise @State in init"
+        },
+        {
+          "id": "watchlist-star-swift-3",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "Button(action: { starred = !starred })",
+          "label": "Setter call becomes assignment"
+        },
+        {
+          "id": "watchlist-star-kotlin-4",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "var starred by remember { mutableStateOf(initiallyStarred) }",
+          "label": "Remembered state from prop"
+        },
+        {
+          "id": "watchlist-star-kotlin-5",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "if (starred) \"★\" else \"☆\"",
+          "label": "Ternary becomes if-expression"
+        },
+        {
+          "id": "watchlist-star-kotlin-6",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": ".clickable { starred = !starred }",
+          "label": "Setter call becomes assignment"
+        }
+      ]
+    },
+    {
+      "id": "recurring-buy-schedule",
+      "name": "RecurringBuySchedule",
+      "area": "Recurring buys",
+      "path": "app/features/recurring/RecurringBuySchedule.tsx",
+      "squad": "Payments squad",
+      "dailyViews": 411000,
+      "priority": "P1",
+      "source": "import React from 'react';\nimport { ScrollView, Text } from 'react-native';\nimport { colors, spacing, radii, typography } from '@app/design/tokens';\nimport { FrequencyChip } from './FrequencyChip';\n\ntype Props = { assetSymbol: string; frequency: string; onChangeFrequency: (f: string) => void };\n\nexport function RecurringBuySchedule({ assetSymbol, frequency, onChangeFrequency }: Props) {\n  return (\n    <ScrollView>\n      <Text style={{ ...typography.title, color: colors.textPrimary, padding: spacing.md }}>Recurring buy · {assetSymbol}</Text>\n      <FrequencyChip label=\"Daily\" selected={frequency === 'daily'} onPress={() => onChangeFrequency('daily')} />\n      <FrequencyChip label=\"Weekly\" selected={frequency === 'weekly'} onPress={() => onChangeFrequency('weekly')} />\n      <FrequencyChip label=\"Monthly\" selected={frequency === 'monthly'} onPress={() => onChangeFrequency('monthly')} />\n    </ScrollView>\n  );\n}",
+      "golden": [
+        {
+          "id": "recurring-buy-schedule-swift-1",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "ScrollView {",
+          "label": "ScrollView mapping"
+        },
+        {
+          "id": "recurring-buy-schedule-swift-2",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "FrequencyChip(label: \"Daily\", selected: frequency == \"daily\", onPress: { onChangeFrequency(\"daily\") })",
+          "label": "Custom component call"
+        },
+        {
+          "id": "recurring-buy-schedule-swift-3",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "let onChangeFrequency: (String) -> Void",
+          "label": "Typed callback"
+        },
+        {
+          "id": "recurring-buy-schedule-kotlin-4",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "Modifier.verticalScroll(rememberScrollState())",
+          "label": "ScrollView mapping"
+        },
+        {
+          "id": "recurring-buy-schedule-kotlin-5",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "FrequencyChip(label = \"Weekly\", selected = frequency == \"weekly\", onPress = { onChangeFrequency(\"weekly\") })",
+          "label": "Custom component call"
+        },
+        {
+          "id": "recurring-buy-schedule-kotlin-6",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "onChangeFrequency: (String) -> Unit",
+          "label": "Typed callback"
+        }
+      ]
+    },
+    {
+      "id": "staking-rewards-banner",
+      "name": "StakingRewardsBanner",
+      "area": "Earn",
+      "path": "app/features/earn/StakingRewardsBanner.tsx",
+      "squad": "Earn squad",
+      "dailyViews": 486000,
+      "priority": "P2",
+      "source": "import React, { useEffect } from 'react';\nimport { View, Text, Image, Pressable } from 'react-native';\nimport { colors, spacing, radii, typography } from '@app/design/tokens';\nimport { trackImpression } from '@app/analytics';\n\ntype Props = { assetId: string; apy: number; isEligible: boolean; onLearnMore: () => void };\n\nexport function StakingRewardsBanner({ assetId, apy, isEligible, onLearnMore }: Props) {\n  useEffect(() => { trackImpression(assetId); }, [assetId]);\n  return (\n    <View style={{ flexDirection: 'row', gap: spacing.sm, padding: spacing.md, backgroundColor: colors.surfaceAccent, borderRadius: radii.lg }}>\n      <Image source={{ uri: 'https://cdn.example.test/staking.png' }} style={{ width: 40, height: 40 }} />\n      <View style={{ flex: 1, gap: spacing.xs }}>\n        <Text style={{ ...typography.label, color: colors.textPrimary }}>Earn up to {apy.toFixed(1)}% APY</Text>\n        {isEligible && (\n          <Pressable onPress={onLearnMore}>\n            <Text style={{ ...typography.caption, color: colors.primary }}>Learn more</Text>\n          </Pressable>\n        )}\n      </View>\n    </View>\n  );\n}",
+      "golden": [
+        {
+          "id": "staking-rewards-banner-swift-1",
+          "platform": "swift",
+          "type": "contains",
+          "expect": ".task(id: assetId) {",
+          "label": "Effect keyed on assetId"
+        },
+        {
+          "id": "staking-rewards-banner-swift-2",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "String(format: \"%.1f\", apy)",
+          "label": "APY formatting"
+        },
+        {
+          "id": "staking-rewards-banner-swift-3",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "DS.Color.surfaceAccent",
+          "label": "Accent surface token"
+        },
+        {
+          "id": "staking-rewards-banner-swift-4",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "if isEligible {",
+          "label": "Conditional CTA"
+        },
+        {
+          "id": "staking-rewards-banner-kotlin-5",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "LaunchedEffect(assetId) {",
+          "label": "Effect keyed on assetId"
+        },
+        {
+          "id": "staking-rewards-banner-kotlin-6",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "\"%.1f\".format(apy)",
+          "label": "APY formatting"
+        },
+        {
+          "id": "staking-rewards-banner-kotlin-7",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "if (isEligible) {",
+          "label": "Conditional CTA"
+        },
+        {
+          "id": "staking-rewards-banner-kotlin-8",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "Modifier.weight(1f)",
+          "label": "flex: 1 column"
+        }
+      ]
+    },
+    {
+      "id": "security-settings-screen",
+      "name": "SecuritySettingsScreen",
+      "area": "Settings",
+      "path": "app/features/settings/SecuritySettingsScreen.tsx",
+      "squad": "Identity squad",
+      "dailyViews": 877000,
+      "priority": "P1",
+      "source": "import React, { useState } from 'react';\nimport { ScrollView, View, Text, Switch } from 'react-native';\nimport { colors, spacing, radii, typography } from '@app/design/tokens';\n\nexport function SecuritySettingsScreen() {\n  const [biometrics, setBiometrics] = useState(true);\n  const [txAlerts, setTxAlerts] = useState(false);\n  return (\n    <ScrollView>\n      <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: spacing.md }}>\n        <Text style={{ ...typography.body, color: colors.textPrimary }}>Unlock with biometrics</Text>\n        <Switch value={biometrics} onValueChange={setBiometrics} />\n      </View>\n      <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: spacing.md }}>\n        <Text style={{ ...typography.body, color: colors.textPrimary }}>Transaction alerts</Text>\n        <Switch value={txAlerts} onValueChange={setTxAlerts} />\n      </View>\n    </ScrollView>\n  );\n}",
+      "golden": [
+        {
+          "id": "security-settings-screen-swift-1",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "@State private var biometrics = true",
+          "label": "First toggle state"
+        },
+        {
+          "id": "security-settings-screen-swift-2",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "Spacer()",
+          "label": "space-between needs a Spacer"
+        },
+        {
+          "id": "security-settings-screen-swift-3",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "Toggle(\"\", isOn: $txAlerts)",
+          "label": "Second toggle"
+        },
+        {
+          "id": "security-settings-screen-kotlin-4",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "horizontalArrangement = Arrangement.SpaceBetween",
+          "label": "space-between arrangement"
+        },
+        {
+          "id": "security-settings-screen-kotlin-5",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "Switch(checked = biometrics, onCheckedChange = { biometrics = it })",
+          "label": "First switch"
+        },
+        {
+          "id": "security-settings-screen-kotlin-6",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "fun SecuritySettingsScreen()",
+          "label": "No-arg composable"
+        }
+      ]
+    },
+    {
+      "id": "price-chart-header",
+      "name": "PriceChartHeader",
+      "area": "Trade",
+      "path": "app/features/trade/PriceChartHeader.tsx",
+      "squad": "Trade squad",
+      "dailyViews": 367000,
+      "priority": "P2",
+      "source": "import React, { useMemo } from 'react';\nimport { Animated, Text } from 'react-native';\nimport { colors, spacing, radii, typography } from '@app/design/tokens';\nimport { computeChange } from './math';\n\ntype Props = { assetName: string; prices: number[]; fadeAnim: Animated.Value };\n\nexport function PriceChartHeader({ assetName, prices, fadeAnim }: Props) {\n  const change = useMemo(() => computeChange(prices), [prices]);\n  return (\n    <Animated.View style={{ padding: spacing.md, opacity: fadeAnim }}>\n      <Text style={{ ...typography.title, color: colors.textPrimary }}>{assetName}</Text>\n      <Text style={{ ...typography.body, color: change >= 0 ? colors.positive : colors.negative }}>{change.toFixed(2)}%</Text>\n    </Animated.View>\n  );\n}",
+      "golden": [
+        {
+          "id": "price-chart-header-swift-1",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "private var change: Double { computeChange(prices) }",
+          "label": "useMemo becomes a computed property"
+        },
+        {
+          "id": "price-chart-header-swift-2",
+          "platform": "swift",
+          "type": "contains",
+          "expect": ".opacity(",
+          "label": "Animated opacity"
+        },
+        {
+          "id": "price-chart-header-swift-3",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "change >= 0 ? DS.Color.positive : DS.Color.negative",
+          "label": "Conditional colour tokens"
+        },
+        {
+          "id": "price-chart-header-kotlin-4",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "val change = remember(prices) { computeChange(prices) }",
+          "label": "useMemo becomes remember(key)"
+        },
+        {
+          "id": "price-chart-header-kotlin-5",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "Modifier.alpha(",
+          "label": "Animated opacity"
+        },
+        {
+          "id": "price-chart-header-kotlin-6",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "if (change >= 0) DSTheme.colors.positive else DSTheme.colors.negative",
+          "label": "Conditional colour tokens"
+        }
+      ]
+    },
+    {
+      "id": "onboarding-welcome",
+      "name": "OnboardingWelcome",
+      "area": "Onboarding",
+      "path": "app/features/onboarding/OnboardingWelcome.tsx",
+      "squad": "Identity squad",
+      "dailyViews": 689000,
+      "priority": "P0",
+      "source": "import React from 'react';\nimport { View, Text, Pressable } from 'react-native';\nimport { colors, spacing, radii, typography } from '@app/design/tokens';\n\ntype Props = { firstName: string; onGetStarted: () => void };\n\nexport function OnboardingWelcome({ firstName, onGetStarted }: Props) {\n  return (\n    <View style={{ padding: spacing.xl, gap: spacing.md, backgroundColor: colors.background }}>\n      <Text style={{ ...typography.display, color: colors.textPrimary }}>Welcome, {firstName}</Text>\n      <Text style={{ ...typography.body, color: colors.textSecondary }}>Your account is ready. Let's set up your first recurring buy.</Text>\n      <Pressable onPress={onGetStarted} style={{ padding: spacing.md, backgroundColor: colors.primary, borderRadius: radii.md }}>\n        <Text style={{ ...typography.label, color: colors.onPrimary }}>Get started</Text>\n      </Pressable>\n    </View>\n  );\n}",
+      "golden": [
+        {
+          "id": "onboarding-welcome-swift-1",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "Text(\"Welcome, \\(firstName)\")",
+          "label": "String interpolation"
+        },
+        {
+          "id": "onboarding-welcome-swift-2",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "VStack(alignment: .leading, spacing: DS.Spacing.md)",
+          "label": "Column with token gap"
+        },
+        {
+          "id": "onboarding-welcome-swift-3",
+          "platform": "swift",
+          "type": "contains",
+          "expect": "Button(action: onGetStarted)",
+          "label": "CTA button"
+        },
+        {
+          "id": "onboarding-welcome-kotlin-4",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "Text(text = \"Welcome, $firstName\"",
+          "label": "String template"
+        },
+        {
+          "id": "onboarding-welcome-kotlin-5",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "verticalArrangement = Arrangement.spacedBy(DSTheme.spacing.md)",
+          "label": "Column gap token"
+        },
+        {
+          "id": "onboarding-welcome-kotlin-6",
+          "platform": "kotlin",
+          "type": "contains",
+          "expect": "DSTheme.colors.primary",
+          "label": "Primary token"
+        }
+      ]
+    }
+  ],
+  "tokens": [
+    {
+      "id": "TOK-color-background",
+      "rn": "colors.background",
+      "swift": "DS.Color.background",
+      "kotlin": "DSTheme.colors.background",
+      "value": "#FFFFFF",
+      "kind": "color"
+    },
+    {
+      "id": "TOK-color-surface",
+      "rn": "colors.surface",
+      "swift": "DS.Color.surface",
+      "kotlin": "DSTheme.colors.surface",
+      "value": "#F4F6FA",
+      "kind": "color"
+    },
+    {
+      "id": "TOK-color-surfaceAccent",
+      "rn": "colors.surfaceAccent",
+      "swift": "DS.Color.surfaceAccent",
+      "kotlin": "DSTheme.colors.surfaceAccent",
+      "value": "#E8EEFF",
+      "kind": "color"
+    },
+    {
+      "id": "TOK-color-primary",
+      "rn": "colors.primary",
+      "swift": "DS.Color.primary",
+      "kotlin": "DSTheme.colors.primary",
+      "value": "#1F4FE0",
+      "kind": "color"
+    },
+    {
+      "id": "TOK-color-onPrimary",
+      "rn": "colors.onPrimary",
+      "swift": "DS.Color.onPrimary",
+      "kotlin": "DSTheme.colors.onPrimary",
+      "value": "#FFFFFF",
+      "kind": "color"
+    },
+    {
+      "id": "TOK-color-textPrimary",
+      "rn": "colors.textPrimary",
+      "swift": "DS.Color.textPrimary",
+      "kotlin": "DSTheme.colors.textPrimary",
+      "value": "#0B0E14",
+      "kind": "color"
+    },
+    {
+      "id": "TOK-color-textSecondary",
+      "rn": "colors.textSecondary",
+      "swift": "DS.Color.textSecondary",
+      "kotlin": "DSTheme.colors.textSecondary",
+      "value": "#5A6372",
+      "kind": "color"
+    },
+    {
+      "id": "TOK-color-positive",
+      "rn": "colors.positive",
+      "swift": "DS.Color.positive",
+      "kotlin": "DSTheme.colors.positive",
+      "value": "#0F8A5F",
+      "kind": "color"
+    },
+    {
+      "id": "TOK-color-negative",
+      "rn": "colors.negative",
+      "swift": "DS.Color.negative",
+      "kotlin": "DSTheme.colors.negative",
+      "value": "#C8323C",
+      "kind": "color"
+    },
+    {
+      "id": "TOK-color-accent",
+      "rn": "colors.accent",
+      "swift": "DS.Color.accent",
+      "kotlin": "DSTheme.colors.accent",
+      "value": "#F2A100",
+      "kind": "color"
+    },
+    {
+      "id": "TOK-spacing-xs",
+      "rn": "spacing.xs",
+      "swift": "DS.Spacing.xs",
+      "kotlin": "DSTheme.spacing.xs",
+      "value": "4pt",
+      "kind": "spacing"
+    },
+    {
+      "id": "TOK-spacing-sm",
+      "rn": "spacing.sm",
+      "swift": "DS.Spacing.sm",
+      "kotlin": "DSTheme.spacing.sm",
+      "value": "8pt",
+      "kind": "spacing"
+    },
+    {
+      "id": "TOK-spacing-md",
+      "rn": "spacing.md",
+      "swift": "DS.Spacing.md",
+      "kotlin": "DSTheme.spacing.md",
+      "value": "16pt",
+      "kind": "spacing"
+    },
+    {
+      "id": "TOK-spacing-lg",
+      "rn": "spacing.lg",
+      "swift": "DS.Spacing.lg",
+      "kotlin": "DSTheme.spacing.lg",
+      "value": "24pt",
+      "kind": "spacing"
+    },
+    {
+      "id": "TOK-spacing-xl",
+      "rn": "spacing.xl",
+      "swift": "DS.Spacing.xl",
+      "kotlin": "DSTheme.spacing.xl",
+      "value": "32pt",
+      "kind": "spacing"
+    },
+    {
+      "id": "TOK-radius-md",
+      "rn": "radii.md",
+      "swift": "DS.Radius.md",
+      "kotlin": "DSTheme.radii.md",
+      "value": "8pt",
+      "kind": "radius"
+    },
+    {
+      "id": "TOK-radius-lg",
+      "rn": "radii.lg",
+      "swift": "DS.Radius.lg",
+      "kotlin": "DSTheme.radii.lg",
+      "value": "16pt",
+      "kind": "radius"
+    },
+    {
+      "id": "TOK-type-display",
+      "rn": "typography.display",
+      "swift": "DS.Font.display",
+      "kotlin": "DSTheme.typography.display",
+      "value": "32/40 semibold",
+      "kind": "typography"
+    },
+    {
+      "id": "TOK-type-title",
+      "rn": "typography.title",
+      "swift": "DS.Font.title",
+      "kotlin": "DSTheme.typography.title",
+      "value": "22/28 semibold",
+      "kind": "typography"
+    },
+    {
+      "id": "TOK-type-body",
+      "rn": "typography.body",
+      "swift": "DS.Font.body",
+      "kotlin": "DSTheme.typography.body",
+      "value": "16/22 regular",
+      "kind": "typography"
+    },
+    {
+      "id": "TOK-type-label",
+      "rn": "typography.label",
+      "swift": "DS.Font.label",
+      "kotlin": "DSTheme.typography.label",
+      "value": "15/20 medium",
+      "kind": "typography"
+    },
+    {
+      "id": "TOK-type-caption",
+      "rn": "typography.caption",
+      "swift": "DS.Font.caption",
+      "kotlin": "DSTheme.typography.caption",
+      "value": "13/18 regular",
+      "kind": "typography"
+    }
+  ],
+  "rules": [
+    {
+      "id": "R-IMPORT-REACT",
+      "tier": "core",
+      "title": "React import",
+      "rn": "import React from 'react'",
+      "swift": "(none)",
+      "kotlin": "import androidx.compose.runtime.*",
+      "rationale": "Compose runtime provides state primitives; SwiftUI needs no React equivalent.",
+      "reviewedBy": "J. Moreau",
+      "approvedMigrations": 28
+    },
+    {
+      "id": "R-IMPORT-RN",
+      "tier": "core",
+      "title": "react-native import",
+      "rn": "import { View } from 'react-native'",
+      "swift": "import SwiftUI",
+      "kotlin": "import androidx.compose.foundation.layout.* / material3.*",
+      "rationale": "Platform UI toolkit import.",
+      "reviewedBy": "D. Haddad",
+      "approvedMigrations": 17
+    },
+    {
+      "id": "R-IMPORT-TOKENS",
+      "tier": "core",
+      "title": "Design-token import",
+      "rn": "import { colors } from '@app/design/tokens'",
+      "swift": "import DesignSystem",
+      "kotlin": "import com.example.designsystem.DSTheme",
+      "rationale": "Tokens live in the shared native design-system module.",
+      "reviewedBy": "D. Haddad",
+      "approvedMigrations": 22
+    },
+    {
+      "id": "R-IMPORT-LOCAL",
+      "tier": "core",
+      "title": "Sibling module import",
+      "rn": "import { AssetRow } from './AssetRow'",
+      "swift": "(same module)",
+      "kotlin": "(same package)",
+      "rationale": "Same-feature components share a module/package natively.",
+      "reviewedBy": "D. Haddad",
+      "approvedMigrations": 35
+    },
+    {
+      "id": "R-PROPS-TYPE",
+      "tier": "core",
+      "title": "Props type alias",
+      "rn": "type Props = { a: string }",
+      "swift": "let a: String",
+      "kotlin": "a: String (parameter)",
+      "rationale": "TS types map to Swift/Kotlin types: string→String, number→Double, boolean→Bool/Boolean, T[]→[T]/List<T>, () => void→() -> Void/Unit.",
+      "reviewedBy": "D. Haddad",
+      "approvedMigrations": 29
+    },
+    {
+      "id": "R-COMPONENT",
+      "tier": "core",
+      "title": "Function component",
+      "rn": "export function X(props) {",
+      "swift": "struct X: View {",
+      "kotlin": "@Composable fun X(...) {",
+      "rationale": "Function components become SwiftUI views and composable functions.",
+      "reviewedBy": "R. Okafor",
+      "approvedMigrations": 6
+    },
+    {
+      "id": "R-STATE",
+      "tier": "core",
+      "title": "useState hook",
+      "rn": "const [v, setV] = useState(x)",
+      "swift": "@State private var v = x",
+      "kotlin": "var v by remember { mutableStateOf(x) }",
+      "rationale": "Local UI state; setter calls become assignments.",
+      "reviewedBy": "A. Tanaka",
+      "approvedMigrations": 20
+    },
+    {
+      "id": "R-RENDER-RETURN",
+      "tier": "core",
+      "title": "Render return",
+      "rn": "return ( ... );",
+      "swift": "var body: some View { ... }",
+      "kotlin": "(composable body)",
+      "rationale": "JSX root becomes the view body.",
+      "reviewedBy": "J. Moreau",
+      "approvedMigrations": 40
+    },
+    {
+      "id": "R-BLOCK-CLOSE",
+      "tier": "core",
+      "title": "Block close",
+      "rn": "}",
+      "swift": "}",
+      "kotlin": "}",
+      "rationale": "Structural close of component scope.",
+      "reviewedBy": "J. Moreau",
+      "approvedMigrations": 4
+    },
+    {
+      "id": "R-VIEW-COLUMN",
+      "tier": "core",
+      "title": "View (column)",
+      "rn": "<View>",
+      "swift": "VStack(alignment: .leading, spacing: …)",
+      "kotlin": "Column(...)",
+      "rationale": "RN default flexDirection is column.",
+      "reviewedBy": "R. Okafor",
+      "approvedMigrations": 34
+    },
+    {
+      "id": "R-VIEW-ROW",
+      "tier": "core",
+      "title": "View (row)",
+      "rn": "<View style={{ flexDirection: 'row' }}>",
+      "swift": "HStack(...)",
+      "kotlin": "Row(...)",
+      "rationale": "Row layouts map to horizontal stacks.",
+      "reviewedBy": "R. Okafor",
+      "approvedMigrations": 14
+    },
+    {
+      "id": "R-SCROLLVIEW",
+      "tier": "core",
+      "title": "ScrollView",
+      "rn": "<ScrollView>",
+      "swift": "ScrollView { }",
+      "kotlin": "Column(Modifier.verticalScroll(rememberScrollState()))",
+      "rationale": "Vertical scroll container.",
+      "reviewedBy": "A. Tanaka",
+      "approvedMigrations": 37
+    },
+    {
+      "id": "R-TEXT",
+      "tier": "core",
+      "title": "Text",
+      "rn": "<Text>Hi {name}</Text>",
+      "swift": "Text(\"Hi \\(name)\")",
+      "kotlin": "Text(text = \"Hi $name\")",
+      "rationale": "JSX interpolation becomes native string interpolation.",
+      "reviewedBy": "S. Patel",
+      "approvedMigrations": 7
+    },
+    {
+      "id": "R-PRESSABLE",
+      "tier": "core",
+      "title": "Pressable",
+      "rn": "<Pressable onPress={f}>",
+      "swift": "Button(action: f) { }",
+      "kotlin": "Box(Modifier.clickable { f() })",
+      "rationale": "Tap targets; style applies to the button container.",
+      "reviewedBy": "J. Moreau",
+      "approvedMigrations": 23
+    },
+    {
+      "id": "R-SWITCH",
+      "tier": "core",
+      "title": "Switch",
+      "rn": "<Switch value={v} onValueChange={setV} />",
+      "swift": "Toggle(\"\", isOn: $v)",
+      "kotlin": "Switch(checked = v, onCheckedChange = { v = it })",
+      "rationale": "Two-way binding to state.",
+      "reviewedBy": "R. Okafor",
+      "approvedMigrations": 28
+    },
+    {
+      "id": "R-TEXTINPUT",
+      "tier": "core",
+      "title": "TextInput",
+      "rn": "<TextInput value={v} onChangeText={setV} />",
+      "swift": "TextField(\"…\", text: $v)",
+      "kotlin": "OutlinedTextField(value = v, onValueChange = { v = it })",
+      "rationale": "Controlled text input.",
+      "reviewedBy": "R. Okafor",
+      "approvedMigrations": 18
+    },
+    {
+      "id": "R-ACTIVITY",
+      "tier": "core",
+      "title": "ActivityIndicator",
+      "rn": "<ActivityIndicator />",
+      "swift": "ProgressView()",
+      "kotlin": "CircularProgressIndicator()",
+      "rationale": "Indeterminate spinner.",
+      "reviewedBy": "R. Okafor",
+      "approvedMigrations": 35
+    },
+    {
+      "id": "R-CUSTOM-COMPONENT",
+      "tier": "core",
+      "title": "Custom component call",
+      "rn": "<Row a={b} />",
+      "swift": "Row(a: b)",
+      "kotlin": "Row(a = b)",
+      "rationale": "JSX props become labelled / named arguments.",
+      "reviewedBy": "S. Patel",
+      "approvedMigrations": 31
+    },
+    {
+      "id": "R-STYLE-BOX",
+      "tier": "core",
+      "title": "Box style props",
+      "rn": "padding, backgroundColor, borderRadius, width, height, gap, alignItems",
+      "swift": ".padding / .background / .clipShape / .frame",
+      "kotlin": "Modifier.padding / background / clip / size",
+      "rationale": "Compose modifier order: clip → background → clickable → padding.",
+      "reviewedBy": "A. Tanaka",
+      "approvedMigrations": 37
+    },
+    {
+      "id": "R-STYLE-TEXT",
+      "tier": "core",
+      "title": "Text style props",
+      "rn": "...typography.x, color",
+      "swift": ".font / .foregroundColor",
+      "kotlin": "style = … , color = …",
+      "rationale": "Typography spreads map to font tokens.",
+      "reviewedBy": "R. Okafor",
+      "approvedMigrations": 15
+    },
+    {
+      "id": "R-EFFECT",
+      "tier": "extended",
+      "title": "useEffect hook",
+      "rn": "useEffect(() => { f(); }, [dep])",
+      "swift": ".task(id: dep) { f() }",
+      "kotlin": "LaunchedEffect(dep) { f() }",
+      "rationale": "Retrieved from migrated examples MIG-104, MIG-131. Empty deps = run on appear.",
+      "reviewedBy": "D. Haddad",
+      "approvedMigrations": 37
+    },
+    {
+      "id": "R-FLATLIST",
+      "tier": "extended",
+      "title": "FlatList",
+      "rn": "<FlatList data={xs} keyExtractor={(i) => i.id} renderItem={...} />",
+      "swift": "List(xs, id: \\.id) { item in … }",
+      "kotlin": "LazyColumn { items(xs, key = { it.id }) { item -> … } }",
+      "rationale": "Retrieved from migrated examples MIG-109, MIG-140. Lazy lists keyed by stable id.",
+      "reviewedBy": "D. Haddad",
+      "approvedMigrations": 13
+    },
+    {
+      "id": "R-IMAGE",
+      "tier": "extended",
+      "title": "Remote Image",
+      "rn": "<Image source={{ uri }} />",
+      "swift": "AsyncImage(url: URL(string: uri))",
+      "kotlin": "AsyncImage(model = uri, contentDescription = null)",
+      "rationale": "Retrieved from MIG-112. Uses the platform async image loader.",
+      "reviewedBy": "S. Patel",
+      "approvedMigrations": 25
+    },
+    {
+      "id": "R-COND-RENDER",
+      "tier": "extended",
+      "title": "Conditional render (&&)",
+      "rn": "{cond && <X />}",
+      "swift": "if cond { X() }",
+      "kotlin": "if (cond) { X() }",
+      "rationale": "Retrieved from MIG-118. Short-circuit JSX becomes an if-block.",
+      "reviewedBy": "A. Tanaka",
+      "approvedMigrations": 29
+    },
+    {
+      "id": "R-NUMBER-FORMAT",
+      "tier": "extended",
+      "title": "Number.toFixed",
+      "rn": "n.toFixed(2)",
+      "swift": "String(format: \"%.2f\", n)",
+      "kotlin": "\"%.2f\".format(n)",
+      "rationale": "Retrieved from MIG-121. Fixed-precision formatting.",
+      "reviewedBy": "A. Tanaka",
+      "approvedMigrations": 20
+    },
+    {
+      "id": "R-LAYOUT-FLEX",
+      "tier": "extended",
+      "title": "flex: 1",
+      "rn": "style={{ flex: 1 }}",
+      "swift": ".frame(maxWidth: .infinity …)",
+      "kotlin": "Modifier.weight(1f) / fillMaxSize()",
+      "rationale": "Retrieved from MIG-126. Fill remaining space.",
+      "reviewedBy": "M. Lindqvist",
+      "approvedMigrations": 14
+    },
+    {
+      "id": "R-LAYOUT-SPACE-BETWEEN",
+      "tier": "extended",
+      "title": "justifyContent: space-between",
+      "rn": "justifyContent: 'space-between'",
+      "swift": "Spacer() between children",
+      "kotlin": "Arrangement.SpaceBetween",
+      "rationale": "Retrieved from MIG-133.",
+      "reviewedBy": "R. Okafor",
+      "approvedMigrations": 28
+    },
+    {
+      "id": "R-STATE-FROM-PROP",
+      "tier": "extended",
+      "title": "State seeded from prop",
+      "rn": "useState(initialProp)",
+      "swift": "@State var v: T + init { _v = State(initialValue:) }",
+      "kotlin": "remember { mutableStateOf(initialProp) }",
+      "rationale": "Swift cannot reference self in a property initialiser; agent emits an explicit init.",
+      "reviewedBy": "R. Okafor",
+      "approvedMigrations": 34
+    },
+    {
+      "id": "R-KEYBOARD-TYPE",
+      "tier": "extended",
+      "title": "keyboardType",
+      "rn": "keyboardType=\"decimal-pad\"",
+      "swift": ".keyboardType(.decimalPad)",
+      "kotlin": "KeyboardOptions(keyboardType = KeyboardType.Decimal)",
+      "rationale": "Retrieved from MIG-137.",
+      "reviewedBy": "D. Haddad",
+      "approvedMigrations": 39
+    }
+  ],
+  "gaps": [
+    {
+      "id": "GAP-TERNARY-RENDER",
+      "pattern": "{cond ? <A /> : <B />}",
+      "note": "No reviewed pattern yet; route to human review."
+    },
+    {
+      "id": "GAP-USEMEMO",
+      "pattern": "useMemo(() => …, [deps])",
+      "note": "Needs a computed-property / remember(key) pattern."
+    },
+    {
+      "id": "GAP-ANIMATED",
+      "pattern": "Animated.View / Animated.Value",
+      "note": "Animation APIs differ per platform; needs a human decision."
+    }
+  ],
+  "configs": [
+    {
+      "id": "cfg-baseline",
+      "name": "Baseline · single-pass rules",
+      "description": "One pass over the file using core rules only. No retrieval, no token lookup, no verification.",
+      "tiers": [
+        "core"
+      ],
+      "tokenRetrieval": false,
+      "selfCheck": false
+    },
+    {
+      "id": "cfg-tokens",
+      "name": "Rules + design-token retrieval",
+      "description": "Core rules plus lookup of every style value in the design-token registry.",
+      "tiers": [
+        "core"
+      ],
+      "tokenRetrieval": true,
+      "selfCheck": false
+    },
+    {
+      "id": "cfg-agentic",
+      "name": "Agentic · pattern retrieval + tokens + self-check",
+      "description": "Plans the file, retrieves extended patterns from the reviewed migration library, resolves tokens, then self-checks output (brace balance, bindings, unmapped lines) and routes gaps to human review.",
+      "tiers": [
+        "core",
+        "extended"
+      ],
+      "tokenRetrieval": true,
+      "selfCheck": true
+    }
+  ]
+}

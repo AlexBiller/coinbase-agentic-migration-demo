@@ -1,0 +1,31 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Smoke test</title></head>
+<body>
+<p>Unofficial demo built with Devin - synthetic data</p>
+<pre id="out">running</pre>
+<script src="../data/seed.js"></script>
+<script src="../assets/translator.js"></script>
+<script>
+  // Headless smoke test: runs the evaluation for every configuration and
+  // checks that the agentic config beats the baseline and every output line is traced.
+  var out = [], fail = [];
+  SEED.configs.forEach(function (cfg) {
+    var r = Translator.runEval(SEED, cfg);
+    out.push(cfg.id + ' accuracy=' + (r.summary.assertionAccuracy * 100).toFixed(1) + '% cases=' + r.summary.casesPassed + '/' + r.summary.cases +
+      ' coverage=' + (r.summary.coverage * 100).toFixed(1) + '% grounding=' + (r.summary.grounding * 100).toFixed(1) + '%');
+    r.cases.forEach(function (c) {
+      out.push('  ' + c.surfaceId + ' ' + c.passed + '/' + c.total + c.checks.filter(function (x) { return !x.pass; }).map(function (x) { return '\n     FAIL ' + x.platform + ': ' + x.expect; }).join(''));
+    });
+  });
+  var base = Translator.runEval(SEED, SEED.configs[0]).summary.assertionAccuracy;
+  var ag = Translator.runEval(SEED, SEED.configs[2]).summary.assertionAccuracy;
+  if (!(ag > base)) fail.push('agentic should beat baseline');
+  SEED.surfaces.forEach(function (s) {
+    SEED.configs.forEach(function (cfg) {
+      var r = Translator.translate(s, cfg, SEED);
+      r.swift.concat(r.kotlin).forEach(function (l) { if (l.text.trim() && !l.src.length) fail.push('untraced line in ' + s.id + ': ' + l.text); });
+    });
+  });
+  document.getElementById('out').textContent = (fail.length ? 'SMOKE FAIL\n' + fail.join('\n') : 'SMOKE OK') + '\n' + out.join('\n');
+</script>
+</body></html>
